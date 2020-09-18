@@ -12,4 +12,6 @@ public class SearchController {
 	public String addr() {
 		return "search/addr";
 	}
+	
+	 
 }

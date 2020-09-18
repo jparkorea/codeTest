@@ -1,0 +1,19 @@
+.dt_tbl {width:100%; border: 1px solid #d6d6d6; box-sizing:border-box; background: #fff;  }
+.dt_tbl_col_th{background:#f5f5f5!important; font-weight: bold; color:#444444!important; font-size: 13px!important; }
+.dt_tbl_col_th_h{background:#dcdee0!important; font-weight: bold; color:#404040!important;}
+
+
+.dt_tbl_width05{width:5%;}
+.dt_tbl_width08{width:8%;}
+.dt_tbl_width10{width:10%;}
+.dt_tbl_width15{width:15%;}
+.dt_tbl_width17{width:17%;}
+.dt_tbl_width20{width:20%;}
+.dt_tbl_width25{width:25%;}
+.dt_tbl_width30{width:30%;}
+.dt_tbl_width35{width:35%;}
+.dt_tbl_width40{width:40%;}
+.dt_tbl_width45{width:45%;}
+.dt_tbl_width60{width:60%;}
+.dt_tbl_width70{width:70%;}
+.dt_tbl_width80{width:80%;}
