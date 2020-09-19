@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="fragments/common :: head('상세 보기')">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link href="/css/code-test.css" th:href="@{/css/code-test.css}" rel="stylesheet">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:replace="fragments/common :: menu('view')"></nav>
+	<!-- <h2>장소 검색</h2> th:object="${infoDto}" th:field="*{query}" -->
+
+	<form role="form"  th:action="@{/board/view}" method="post">
+	<div class="container-fluid">
+		<div class="row flex-xl-nowrap">
+			<!-- <form role="form"  th:action="@{/board/view}" method="post"> -->
+			<div class="col-md-6">
+				<div class="form-group">
+					<input type="text" class="form-control" id="query" name="query" th:value="*{query}">
+				</div>
+			</div>
+			<div class="col-md-3">
+				<span class="">
+					<button type="submit" class="width_70 btn btn-primary">검색</button>
+				</span>
+			</div>
+			<div th:if="${keywords != null}" class="col-md-3">
+				<table class="table table-borderless">
+					<thead>
+						<tr>
+							<th scope="col">Rank</th>
+							<th scope="col">키워드</th>
+							<th scope="col">횟수</th>
+						</tr>
+					</thead>
+					<tr th:each="keyword, num : ${keywords}">
+						<td th:text="${num.count}"></td>
+						<td th:text="${keyword.keyword}"></td>
+						<td th:text="${keyword.count}"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">No.</th>
+							<th scope="col">주소명</th>
+							<th scope="col">도로명 주소</th>
+							<th scope="col">전화번호</th>
+							<th scope="col">지도URL</th>
+						</tr>
+					</thead>
+					<!-- c:for 문 넣어서 처리하렴 -->
+					<tbody>
+						<tr th:each="info, num : ${infoList}">
+							<td th:text="${num.count}"></td>
+							<td>
+								<a th:href="@{/board/view(id=${info.id})}" th:text="${info.place_name}" ></a>
+							</td>
+							<td th:text="${info.road_address_name}"></td>
+							<td th:text="${info.phone}"></td>
+							<td>
+								<a th:href="${info.map_url}" th:text="${info.map_url}" ></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	</form> 
+</body>
+</html>

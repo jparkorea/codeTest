@@ -1,46 +1,37 @@
 package com.example.codeTest.service.impl;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.List;
 
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.codeTest.domain.entity.KeywordEntity;
-import com.example.codeTest.dto.InfoDto;
-import com.example.codeTest.helper.RestApiHelper;
+import com.example.codeTest.domain.repository.KeywordRepository;
 import com.example.codeTest.service.KeywordService;
 
+@Service
 public class KeywordServiceImpl implements KeywordService{
 
-	/**
-	 * 키워드로 검색
-	 * @throws IOException 
-	 */
+	@Autowired
+	private KeywordRepository keywordRepository;
+	
 	@Override
-	public InfoDto locationByKeyword(String query) throws IOException {
-		
-		
-		
-		String targetUrl = RestApiHelper.getApiUrl();
-		
-		HttpHeaders headers = new HttpHeaders();
-		
-		headers.add("Authorization", RestApiHelper.getRestApiKey());
-		
-		
-		return null;
-		
-		//GET /v2/local/search/keyword.{format} HTTP/1.1
-		//Host: dapi.kakao.com
-		//Authorization: KakaoAK {REST_API_KEY}
+	public List<KeywordEntity> getList(){
+		return keywordRepository.findTop10ByOrderByCountDesc();
 	}
-
+	
 	@Override
-	public void addCount(KeywordEntity ke) {
-		// TODO Auto-generated method stub
+	public List<KeywordEntity> addCountAndGetList(String keyword) {
 		
+		if(keywordRepository.findByKeyword(keyword) == null) {
+			keywordRepository.save(new KeywordEntity(keyword));
+		}else {
+			KeywordEntity keyEntity = keywordRepository.findByKeyword(keyword);
+			keyEntity.setCount(keyEntity.getCount()+1);
+			keywordRepository.save(keyEntity);
+		}
+		
+		return keywordRepository.findTop10ByOrderByCountDesc();
 	}
 
 	

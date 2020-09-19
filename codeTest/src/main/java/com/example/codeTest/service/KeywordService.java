@@ -1,15 +1,12 @@
 package com.example.codeTest.service;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
+import java.util.List;
 
 import com.example.codeTest.domain.entity.KeywordEntity;
-import com.example.codeTest.dto.InfoDto;
 
 public interface KeywordService {
 
-	//KeywordEntity가 DTO로 바뀌어야 함
-	InfoDto locationByKeyword(String query) throws MalformedURLException, IOException;
+	List<KeywordEntity> getList();
 	
-	void addCount(KeywordEntity ke);
+	List<KeywordEntity> addCountAndGetList(String keyword);
 }

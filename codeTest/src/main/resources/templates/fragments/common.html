@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head th:fragment="head(title)">
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -30,11 +30,15 @@
 					<a class="nav-link" href="#" th:href="@{/}">홈 <span class="sr-only" th:if="${menu} == 'home'">(current)</span>
 					</a>
 				</li>
-				<li class="nav-item" th:classappend="${menu} == 'list'? 'active'">
-					<a class="nav-link" href="#" th:href="@{/board/list}">검색 <span class="sr-only" th:if="${menu} == 'list'">(current)</span>
+				<li class="nav-item" th:classappend="${menu} == 'search'? 'active'">
+					<a class="nav-link" href="#" th:href="@{/board/search}">검색 <span class="sr-only" th:if="${menu} == 'search'">(current)</span>
 					</a>
 				</li>
 			</ul>
+			
+			<!-- <form th:action="@{/logout}" method="post">
+            	<button type="submit" value="Sign Out" ></button>
+        	</form> -->
 		</div>
 	</nav>
 </body>
