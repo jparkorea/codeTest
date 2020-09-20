@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/common :: head('상세 보기')">
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -55,7 +55,6 @@
 							<th scope="col">지도URL</th>
 						</tr>
 					</thead>
-					<!-- c:for 문 넣어서 처리하렴 -->
 					<tbody>
 						<tr th:each="info, num : ${infoList}">
 							<td th:text="${num.count}"></td>

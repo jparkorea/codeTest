@@ -1,14 +1,14 @@
-package com.example.codeTest.service.impl;
+package com.example.codeTest.web.service.impl;
 
 import java.io.IOException;
 import java.net.URLEncoder;
 
 import org.springframework.stereotype.Service;
 
-import com.example.codeTest.dto.InfoDto;
 import com.example.codeTest.helper.JsonProcessHelper;
 import com.example.codeTest.helper.RestApiHelper;
-import com.example.codeTest.service.BoardService;
+import com.example.codeTest.web.dto.InfoDto;
+import com.example.codeTest.web.service.BoardService;
 
 @Service
 public class BoardServiceImpl implements BoardService{

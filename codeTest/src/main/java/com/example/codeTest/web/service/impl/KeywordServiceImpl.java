@@ -1,13 +1,13 @@
-package com.example.codeTest.service.impl;
+package com.example.codeTest.web.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.codeTest.domain.entity.KeywordEntity;
-import com.example.codeTest.domain.repository.KeywordRepository;
-import com.example.codeTest.service.KeywordService;
+import com.example.codeTest.web.entity.Keyword;
+import com.example.codeTest.web.repository.KeywordRepository;
+import com.example.codeTest.web.service.KeywordService;
 
 @Service
 public class KeywordServiceImpl implements KeywordService{
@@ -16,17 +16,17 @@ public class KeywordServiceImpl implements KeywordService{
 	private KeywordRepository keywordRepository;
 	
 	@Override
-	public List<KeywordEntity> getList(){
+	public List<Keyword> getList(){
 		return keywordRepository.findTop10ByOrderByCountDesc();
 	}
 	
 	@Override
-	public List<KeywordEntity> addCountAndGetList(String keyword) {
+	public List<Keyword> addCountAndGetList(String keyword) {
 		
 		if(keywordRepository.findByKeyword(keyword) == null) {
-			keywordRepository.save(new KeywordEntity(keyword));
+			keywordRepository.save(new Keyword(keyword));
 		}else {
-			KeywordEntity keyEntity = keywordRepository.findByKeyword(keyword);
+			Keyword keyEntity = keywordRepository.findByKeyword(keyword);
 			keyEntity.setCount(keyEntity.getCount()+1);
 			keywordRepository.save(keyEntity);
 		}

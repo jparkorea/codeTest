@@ -1,4 +1,4 @@
-package com.example.codeTest.dto;
+package com.example.codeTest.web.dto;
 
 import lombok.Data;
 

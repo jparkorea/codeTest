@@ -1,4 +1,4 @@
-package com.example.codeTest.domain.entity;
+package com.example.codeTest.web.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "keyword")
-public class KeywordEntity {
+public class Keyword {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -25,10 +25,10 @@ public class KeywordEntity {
 	@Column
 	Integer count = 1;
 	
-	protected KeywordEntity() {
+	protected Keyword() {
 	}
 	
-	public KeywordEntity(String keyword) {
+	public Keyword(String keyword) {
 		this.keyword = keyword;
 	}
 	
@@ -57,7 +57,7 @@ public class KeywordEntity {
 	}
 
 	@Builder
-	public KeywordEntity(Long id, String keyword, Integer count) {
+	public Keyword(Long id, String keyword, Integer count) {
 		this.id = id;
 		this.keyword = keyword;
 		this.count = count;

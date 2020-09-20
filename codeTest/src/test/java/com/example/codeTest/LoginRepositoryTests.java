@@ -9,18 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.example.codeTest.domain.entity.LoginEntity;
-import com.example.codeTest.domain.repository.LoginRepository;
+import com.example.codeTest.web.entity.Account;
+import com.example.codeTest.web.repository.AccountRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class LoginRepositoryTests {
 
 	@Autowired
-	private LoginRepository loginRepository;
+	private AccountRepository loginRepository;
 	
-	private LoginEntity entity() {
-		return new LoginEntity("hi", "something");
+	private Account entity() {
+		return new Account();
 	}
 	
 	@Test

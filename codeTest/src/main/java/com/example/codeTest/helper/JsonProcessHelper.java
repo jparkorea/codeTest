@@ -1,16 +1,14 @@
 package com.example.codeTest.helper;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.tomcat.util.json.ParseException;
 
-import com.example.codeTest.dto.InfoDto;
+import com.example.codeTest.web.dto.InfoDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;

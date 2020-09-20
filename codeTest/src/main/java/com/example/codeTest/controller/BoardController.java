@@ -2,6 +2,8 @@ package com.example.codeTest.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,20 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.codeTest.domain.entity.KeywordEntity;
-import com.example.codeTest.domain.repository.KeywordRepository;
-import com.example.codeTest.dto.InfoDto;
 import com.example.codeTest.helper.RestApiHelper;
-import com.example.codeTest.service.BoardService;
-import com.example.codeTest.service.KeywordService;
+import com.example.codeTest.web.dto.InfoDto;
+import com.example.codeTest.web.entity.Keyword;
+import com.example.codeTest.web.service.BoardService;
+import com.example.codeTest.web.service.KeywordService;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 
-	@Autowired
-	private KeywordRepository keywordRepository;
-
+	private final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	
 	@Autowired
 	private BoardService boardService;
 	
@@ -34,7 +34,7 @@ public class BoardController {
 	@GetMapping("/search")
 	public ModelAndView search(ModelAndView m) {
 		
-		List<KeywordEntity> keywords = keywordService.getList();
+		List<Keyword> keywords = keywordService.getList();
 		m.addObject("keywords", keywords);
 		
 		m.setViewName("board/search");
@@ -44,23 +44,30 @@ public class BoardController {
 	@PostMapping("/view")
 	public ModelAndView view(@RequestParam("query") String query, ModelAndView m) throws Exception {
 
-		InfoDto infoDto = new InfoDto();
-		infoDto.query = query;
-		infoDto = boardService.locationByKeyword(infoDto);
-		for(int i=0; i<infoDto.documents.size(); i++) {
-			infoDto.documents.get(i).map_url = RestApiHelper.getMapUrl() + infoDto.documents.get(i).id;
+		if(query == null || query.trim().equals("")) {
+			List<Keyword> keywords = keywordService.getList();
+			m.addObject("keywords", keywords);
+			m.setViewName("board/search");
+		}else {
+			InfoDto infoDto = new InfoDto();
+			infoDto.query = query;
+			infoDto = boardService.locationByKeyword(infoDto);
+			for(int i=0; i<infoDto.documents.size(); i++) {
+				infoDto.documents.get(i).map_url = RestApiHelper.getMapUrl() + infoDto.documents.get(i).id;
+			}
+//			infoDto.mapUrl = RestApiHelper.getMapUrl()+infoDto.documents.;
+			/*
+			 * 들어온 query에 대해서 OpenAPI 처리를 하고, query와 카운트 있는지 로직 하고, 검색결과 페이지네이션 형태 검색어와 검색버튼
+			 * 유지할건지 선택
+			 */
+			List<Keyword> keywords = keywordService.addCountAndGetList(query);
+			m.addObject("keywords", keywords);
+			
+			m.addObject("infoList", infoDto.documents);
+			m.addObject("query", query);
+			m.setViewName("/board/view");
 		}
-//		infoDto.mapUrl = RestApiHelper.getMapUrl()+infoDto.documents.;
-		/*
-		 * 들어온 query에 대해서 OpenAPI 처리를 하고, query와 카운트 있는지 로직 하고, 검색결과 페이지네이션 형태 검색어와 검색버튼
-		 * 유지할건지 선택
-		 */
-		List<KeywordEntity> keywords = keywordService.addCountAndGetList(query);
-		m.addObject("keywords", keywords);
 		
-		m.addObject("infoList", infoDto.documents);
-		m.addObject("query", query);
-		m.setViewName("/board/view");
 		return m;
 	}
 
