@@ -24,6 +24,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 
+	/**
+	 * Security 환경설정
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
@@ -48,20 +51,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	}
 
-	// UserDetailsService를 User Repository에서 읽어오도록 구현하는 Bean을 등록해서 써야 함
-	// 이건 테스트코드고, 시작할 때 유저를 넣어주게 됨
-	/*
-	 * @Bean
-	 * 
-	 * @Override protected UserDetailsService userDetailsService() { UserDetails
-	 * user =
-	 * User.withDefaultPasswordEncoder().username("user").password("1q2w3e4r").roles
-	 * ("USER").build(); return new InMemoryUserDetailsManager(user); }
-	 */
-
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth)
 	  throws Exception {
+		//최초 유저 생성
 	    auth.jdbcAuthentication()
 	      .dataSource(dataSource)
 	      .withDefaultSchema()
@@ -70,6 +63,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	        .roles("ADMIN"));
 	}
 
+	/**
+	 * 패스워드 암호화
+	 * @return
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();

@@ -18,6 +18,9 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	/**
+	 * 계정 저장 메소드
+	 */
 	public Account save(Account account) {
 		String encodedPassword = passwordEncoder.encode(account.getPassword());
 		account.setPassword(encodedPassword);

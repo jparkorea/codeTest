@@ -8,11 +8,11 @@ spring:
       enabled: true
       path: /h2_db
   
-  #devtools:
-  #  livereload:
-  #    enabled: true   #livereload 시 활성화
-  #  restart:
-  #    enabled: true  #운영에서는 제거
+  devtools:
+    livereload:
+      enabled: false   #livereload 시 활성화
+    restart:
+      enabled: false  #운영에서는 제거
   
   datasource:
     driver-class-name: org.h2.Driver
@@ -21,7 +21,6 @@ spring:
   jpa:
     database: H2
     database-platform: org.hibernate.dialect.H2Dialect
-  #테스트환경에서만 
     hibernate:
       ddl-auto: create-drop
     properties:

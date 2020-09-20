@@ -16,6 +16,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonProcessHelper {
 
+	/**
+	 * API에서 받아온 값을 Json 데이터로 반환
+	 * @param apiUrl
+	 * @return
+	 * @throws Exception
+	 */
 	public static String getJsonData(String apiUrl) throws Exception {
 		URL url = new URL(apiUrl);
 		HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
@@ -47,6 +53,14 @@ public class JsonProcessHelper {
 		return sb.toString();
 	}
 	
+	/**
+	 * Json 데이터를 InfoDto 객체로 변환
+	 * @param json
+	 * @return
+	 * @throws ParseException
+	 * @throws JsonMappingException
+	 * @throws JsonProcessingException
+	 */
 	public static InfoDto jsonToData(String json) throws ParseException, JsonMappingException, JsonProcessingException {
 		
 		ObjectMapper objectMapper = new ObjectMapper();

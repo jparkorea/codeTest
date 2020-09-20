@@ -20,6 +20,9 @@ public class KeywordServiceImpl implements KeywordService{
 		return keywordRepository.findTop10ByOrderByCountDesc();
 	}
 	
+	/**
+	 * 키워드 검색 시 카운트 추가
+	 */
 	@Override
 	public List<Keyword> addCountAndGetList(String keyword) {
 		

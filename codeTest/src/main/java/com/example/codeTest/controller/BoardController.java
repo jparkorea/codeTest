@@ -5,17 +5,21 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.codeTest.helper.RestApiHelper;
 import com.example.codeTest.web.dto.InfoDto;
+import com.example.codeTest.web.entity.Document;
 import com.example.codeTest.web.entity.Keyword;
+import com.example.codeTest.web.repository.DocumentRepository;
 import com.example.codeTest.web.service.BoardService;
 import com.example.codeTest.web.service.KeywordService;
 
@@ -30,6 +34,9 @@ public class BoardController {
 	
 	@Autowired
 	private KeywordService keywordService;
+	
+	@Autowired
+	private DocumentRepository documentRepository;
 
 	@GetMapping("/search")
 	public ModelAndView search(ModelAndView m) {
@@ -41,40 +48,43 @@ public class BoardController {
 		return m;
 	}
 
-	@PostMapping("/view")
-	public ModelAndView view(@RequestParam("query") String query, ModelAndView m) throws Exception {
+	@GetMapping("/view")
+	public String view(@RequestParam(value = "query", required = false) String query, 
+			Model m, 
+			@PageableDefault(size = 10) Pageable pageable) throws Exception {
 
 		if(query == null || query.trim().equals("")) {
 			List<Keyword> keywords = keywordService.getList();
-			m.addObject("keywords", keywords);
-			m.setViewName("board/search");
+			m.addAttribute("keywords", keywords);
+			
 		}else {
 			InfoDto infoDto = new InfoDto();
-			infoDto.query = query;
-			infoDto = boardService.locationByKeyword(infoDto);
+			infoDto = boardService.locationByKeyword(query);
 			for(int i=0; i<infoDto.documents.size(); i++) {
+				infoDto.documents.get(i).query = query;
 				infoDto.documents.get(i).map_url = RestApiHelper.getMapUrl() + infoDto.documents.get(i).id;
+
+				Document document = new Document(infoDto.documents.get(i));
+				documentRepository.save(document);
 			}
-//			infoDto.mapUrl = RestApiHelper.getMapUrl()+infoDto.documents.;
-			/*
-			 * 들어온 query에 대해서 OpenAPI 처리를 하고, query와 카운트 있는지 로직 하고, 검색결과 페이지네이션 형태 검색어와 검색버튼
-			 * 유지할건지 선택
-			 */
-			List<Keyword> keywords = keywordService.addCountAndGetList(query);
-			m.addObject("keywords", keywords);
 			
-			m.addObject("infoList", infoDto.documents);
-			m.addObject("query", query);
-			m.setViewName("/board/view");
+			//페이징 처리
+			Page<Document> documents = documentRepository.findByQuery(query, pageable);
+			
+			int startPage = Math.max(1, documents.getPageable().getPageNumber() - 4);
+			int endPage = Math.min(documents.getTotalPages(), documents.getPageable().getPageNumber() + 4);
+
+			m.addAttribute("startPage", startPage);
+			m.addAttribute("endPage", endPage);
+			m.addAttribute("documents", documents);
+			
+			List<Keyword> keywords = keywordService.addCountAndGetList(query);
+			m.addAttribute("keywords", keywords);
+			
+			m.addAttribute("query", query);
 		}
 		
-		return m;
+		return "/board/view";
 	}
 
-	@GetMapping("/view?{id}")
-	public void view(@PathVariable("id") Long id) throws Exception {
-		//TODO id를 ?query로 받아서 상세보기 화면(새로 만들어)으로 가야 함. ID값을 받아서 넘겨줘야 함.
-		System.out.println(id);
-	}
-	
 }

@@ -18,9 +18,9 @@ public class BoardServiceImpl implements BoardService{
 	 * @throws IOException 
 	 */
 	@Override
-	public InfoDto locationByKeyword(InfoDto infoDto) throws IOException {
+	public InfoDto locationByKeyword(String query) throws IOException {
 
-		String query = infoDto.query;
+		InfoDto infoDto = new InfoDto();
 		//Query 한글 포함 여부 체크 후 한글 포함 시 UTF-8 인코딩
 		String regExp = ".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*";
 		String targetUrl = RestApiHelper.getApiUrl()+"query=";
@@ -42,4 +42,5 @@ public class BoardServiceImpl implements BoardService{
 		
 		return infoDto;
 	}
+
 }

@@ -7,5 +7,5 @@ import com.example.codeTest.web.dto.InfoDto;
 
 public interface BoardService {
 
-	InfoDto locationByKeyword(InfoDto infoDto) throws MalformedURLException, IOException;
+	InfoDto locationByKeyword(String query) throws MalformedURLException, IOException;
 }
