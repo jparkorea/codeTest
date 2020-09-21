@@ -51,6 +51,8 @@
 
 </a>
 
+![Architecture](https://user-images.githubusercontent.com/24487772/93759119-98d08700-fc44-11ea-9b93-da5d9cbd9b3a.PNG)
+
 ##### 기술 스택
  - Spring Boot
  - JAVA 1.8
@@ -69,7 +71,7 @@
 ### 4. 의존성
 </a>
 
-![dependencies](docs/dependencies.png)
+![dependencies](https://user-images.githubusercontent.com/24487772/93759147-a423b280-fc44-11ea-8d72-ca858dd6ccf1.PNG)
 
  > dependency
  - spring-web : 톰캣, webmvc 등
