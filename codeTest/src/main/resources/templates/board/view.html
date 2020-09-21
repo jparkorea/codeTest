@@ -11,19 +11,21 @@
 <body>
 	
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:replace="fragments/common :: menu('view')"></nav>
-	<form role="form"  th:action="@{/board/view}" method="get">
+	<!-- <form role="form"  th:action="@{/board/view}" method="get"> -->
 	<div class="container-fluid">
 		<div class="row flex-xl-nowrap">
-			<div class="col-md-6">
+			<form class="form-row col-md-9" role="form"  th:action="@{/board/view}" method="get">
+			<div class="col-md-9">
 				<div class="form-group">
-					<input type="text" class="form-control" id="query" name="query" th:value="${query}">
+					<input type="text" class="form-control" id="initQuery" name="initQuery" th:value="${initQuery}">
 				</div>
 			</div>
 			<div class="col-md-3">
-				<span class="">
+				<div class="form-group form-check">
 					<button type="submit" class="width_70 btn btn-primary">검색</button>
-				</span>
+				</div>
 			</div>
+			</form>
 		</div>
 		<div class="row flex-xl-nowrap">
 			<div class="col-md-9">
@@ -78,6 +80,6 @@
 			</div>
 		</div>
 	</div>
-	</form>
+	<!-- </form> -->
 </body>
 </html>

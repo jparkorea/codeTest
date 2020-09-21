@@ -28,63 +28,84 @@ import com.example.codeTest.web.service.KeywordService;
 public class BoardController {
 
 	private final Logger logger = LoggerFactory.getLogger(BoardController.class);
-	
+
 	@Autowired
 	private BoardService boardService;
-	
+
 	@Autowired
 	private KeywordService keywordService;
-	
+
 	@Autowired
 	private DocumentRepository documentRepository;
 
 	@GetMapping("/search")
 	public ModelAndView search(ModelAndView m) {
-		
+
 		List<Keyword> keywords = keywordService.getList();
 		m.addObject("keywords", keywords);
-		
+
 		m.setViewName("board/search");
 		return m;
 	}
 
 	@GetMapping("/view")
-	public String view(@RequestParam(value = "query", required = false) String query, 
-			Model m, 
-			@PageableDefault(size = 10) Pageable pageable) throws Exception {
+	public String viewGet(@RequestParam(value = "query", required = false) String query
+			, @RequestParam(value = "initQuery", required = false) String initQuery
+			, Model m
+			, @PageableDefault(size = 10) Pageable pageable) throws Exception {
+		
+		Page<Document> documents = null;
 
-		if(query == null || query.trim().equals("")) {
-			List<Keyword> keywords = keywordService.getList();
-			m.addAttribute("keywords", keywords);
+		// 검색 버튼을 통해 최초 query만 가졌을 때
+		if (initQuery != null && query == null) {
+
+			// 최초 query에 값이 없으면 검색페이지로 재이동 
+			if(initQuery.trim().equals("")) {
+				return "redirect:search";
+			}
 			
-		}else {
+			query = initQuery;
 			InfoDto infoDto = new InfoDto();
 			infoDto = boardService.locationByKeyword(query);
-			for(int i=0; i<infoDto.documents.size(); i++) {
+			for (int i = 0; i < infoDto.documents.size(); i++) {
 				infoDto.documents.get(i).query = query;
 				infoDto.documents.get(i).map_url = RestApiHelper.getMapUrl() + infoDto.documents.get(i).id;
 
+				// 검색 데이터 DB 저장
 				Document document = new Document(infoDto.documents.get(i));
 				documentRepository.save(document);
 			}
-			
-			//페이징 처리
-			Page<Document> documents = documentRepository.findByQuery(query, pageable);
-			
-			int startPage = Math.max(1, documents.getPageable().getPageNumber() - 4);
-			int endPage = Math.min(documents.getTotalPages(), documents.getPageable().getPageNumber() + 4);
 
-			m.addAttribute("startPage", startPage);
-			m.addAttribute("endPage", endPage);
-			m.addAttribute("documents", documents);
-			
+			// 키워드 Count 증가
 			List<Keyword> keywords = keywordService.addCountAndGetList(query);
 			m.addAttribute("keywords", keywords);
+			m.addAttribute("query", initQuery);
+
+		}else if(initQuery == null && query != null){
+			//query가 null이 아니면 keyword와 query를 적재
 			
+			List<Keyword> keywords = keywordService.getList();
+			m.addAttribute("keywords", keywords);
 			m.addAttribute("query", query);
+			
+		}else { 
+			//initQuery와 query가 null이면 keyword만 적재
+
+			List<Keyword> keywords = keywordService.getList();
+			m.addAttribute("keywords", keywords);
+			
 		}
 		
-		return "/board/view";
+		documents = documentRepository.findByQuery(query, pageable);
+
+		int startPage = Math.max(1, documents.getPageable().getPageNumber() - 4);
+		int endPage = Math.min(documents.getTotalPages(), documents.getPageable().getPageNumber() + 4);
+
+		m.addAttribute("startPage", startPage);
+		m.addAttribute("endPage", endPage);
+		m.addAttribute("documents", documents);
+		
+		return "board/view";
 	}
 
 }

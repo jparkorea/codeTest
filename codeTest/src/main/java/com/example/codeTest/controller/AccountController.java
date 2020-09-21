@@ -31,6 +31,6 @@ public class AccountController {
 	@PostMapping("/register")
 	public String register(Account account) {
 		accountService.save(account);
-		return "redirect:/index";
+		return "redirect:index";
 	}
 }

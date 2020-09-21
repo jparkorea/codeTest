@@ -8,11 +8,11 @@ spring:
       enabled: true
       path: /h2_db
   
-  devtools:
-    livereload:
-      enabled: false   #livereload 시 활성화
-    restart:
-      enabled: false  #운영에서는 제거
+#  devtools:
+#    livereload:
+#      enabled: true   #livereload 시 활성화
+#    restart:
+#      enabled: true  #운영에서는 제거
   
   datasource:
     driver-class-name: org.h2.Driver
