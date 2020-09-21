@@ -11,6 +11,7 @@
 #### [3. 아키텍처](#architecture)
 #### [4. 외부 라이브러리](#dependency)
 #### [5. 실행 가이드](#install_guide)
+#### [6. 테스트 가이드](#test_guide)
 
 
 </br>
@@ -31,7 +32,7 @@
 <a name="functions">
 
 ### 2. 기능
- - 로그인
+ - 로그인/로그아웃
  - 키워드로 장소 검색
  - 검색된 장소 리스트
  - 인기 검색어 목록
@@ -68,13 +69,17 @@
 ### 4. 의존성
 </a>
 
+![dependencies](docs/dependencies.png)
+
  > dependency
  - spring-web : 톰캣, webmvc 등
  - thymeleaf : 타임리프 템플릿 엔진(view)
  - h2 database : InMemory DB
+ - spring-security : 로그인/로그아웃 시 사용
  - spring-data-jpa : aop, jdbc, jpa
+ - org.json : API에서 전달받은 값을 DTO와 매핑
  - devtools : 개발할 때 유용한 라이브러리
- - lombok Java 코드 컴파일 시 자동으로 추가 메서드 생성
+ - lombok : Java 코드 컴파일 시 자동으로 추가 메서드 생성
 
 [맨 위로 가기](#top)
 </br>
@@ -108,11 +113,24 @@ kakao.rest.api={Your Rest API Key}
 ```
 java -jar codeTest-0.0.1.war (--kakao.rest.api={Your Rest API Key})
 ```
-* Rest API 키 획득은 아래 경로 참조
-```
-# Kakao Rest API
-# Reference Site -> https://developers.kakao.com/docs/latest/ko/local/dev-guide
-```
+* Rest API 키 획득은 다음 경로 참조 : <https://developers.kakao.com/docs/latest/ko/local/dev-guide>
+
+[맨 위로 가기](#top)
+</br>
+
+<a name="test_guide">
+
+### 6. 테스트 가이드
+
+</a>
+
+ > 최초 로그인
+ - 계정 : `admin/admin`
+ 
+ > DB 접속 정보
+ - 계정 : `sa/`
+ - 콘솔 경로 : <http://localhost:8080/h2_db>
+ 
 [맨 위로 가기](#top)
 </br>
 
