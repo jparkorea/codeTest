@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CustomErrorController implements ErrorController {
-	private String VIEW_PATH = "/error/";
+	private String VIEW_PATH = "error/";
 
 	@RequestMapping(value = "/error")
 	public String handleError(HttpServletRequest request) {
@@ -35,6 +35,6 @@ public class CustomErrorController implements ErrorController {
 
 	@Override
 	public String getErrorPath() {
-		return "/error";
+		return "error";
 	}
 }
