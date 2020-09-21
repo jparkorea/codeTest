@@ -88,9 +88,9 @@
 </a>
 
 실행방법
-'cmd' 창을 열어 프로젝트의 pom.xml이 있는 경로로 이동 후
+1) 'cmd' 창을 열어 프로젝트의 pom.xml이 있는 경로로 이동
 
-maven 프로젝트 빌드 수행
+2) maven 프로젝트 빌드 수행
 ```
 mvn javacc:javacc
 ```
@@ -99,15 +99,16 @@ mvn clean install
 ```
 
 ##### Properties
-발급받은 API Key를 `application.properties` 혹은 실행 시 옵션에 추가합니다.
+3) 발급받은 API Key를 `application.properties` 혹은 실행 시 옵션에 추가합니다.
 ```
 kakao.rest.api={Your Rest API Key}
 ```
 
-target\codeTest-0.0.1.war 경로로 이동
-프로젝트 실행
-`java -jar codeTest-0.0.1.war (--kakao.rest.api={Your Rest API Key})`
-
+4) target\codeTest-0.0.1.war 경로로 이동 후 프로젝트 실행
+```
+java -jar codeTest-0.0.1.war (--kakao.rest.api={Your Rest API Key})
+```
+* Rest API 키 획득은 아래 경로 참조
 ```
 # Kakao Rest API
 # Reference Site -> https://developers.kakao.com/docs/latest/ko/local/dev-guide
