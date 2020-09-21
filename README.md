@@ -95,7 +95,7 @@
 </a>
 
 실행방법
-1) 'cmd' 창을 열어 프로젝트의 pom.xml이 있는 경로로 이동
+1) 'cmd' 창을 열어 프로젝트의 pom.xml이 있는 경로로 이동(/codeTest/pom.xml)
 
 2) maven 프로젝트 빌드 수행
 ```
@@ -111,7 +111,8 @@ mvn clean install
 kakao.rest.api={Your Rest API Key}
 ```
 
-4) target\codeTest-0.0.1.war 경로로 이동 후 프로젝트 실행
+4) target/codeTest-0.0.1.war 경로로 이동 후 프로젝트 실행
+ - `application.properties`를 수정하지 않은 상태에서 키 값을 옵션으로 주지 않고 실행 시, 서버 에러가 발생합니다.
 ```
 java -jar codeTest-0.0.1.war (--kakao.rest.api={Your Rest API Key})
 ```
@@ -130,12 +131,13 @@ java -jar codeTest-0.0.1.war (--kakao.rest.api={Your Rest API Key})
  - 계정 : `admin/admin`
  
  > DB 접속 정보
- - 계정 : `sa/`
+ - 계정 : `sa/(비밀번호 없음)`
  - 콘솔 경로 : <http://localhost:8080/h2_db>
  
 [맨 위로 가기](#top)
 </br>
 
+빌드 결과물 : <https://github.com/jparkorea/codeTest/releases>
 
 ##### TODO
  - 테스트 코드 작성
