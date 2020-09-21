@@ -37,6 +37,9 @@ public class BoardController {
 
 	@Autowired
 	private DocumentRepository documentRepository;
+	
+	@Autowired
+	RestApiHelper restApiHelper;
 
 	@GetMapping("/search")
 	public ModelAndView search(ModelAndView m) {
@@ -67,9 +70,10 @@ public class BoardController {
 			query = initQuery;
 			InfoDto infoDto = new InfoDto();
 			infoDto = boardService.locationByKeyword(query);
+			
 			for (int i = 0; i < infoDto.documents.size(); i++) {
 				infoDto.documents.get(i).query = query;
-				infoDto.documents.get(i).map_url = RestApiHelper.getMapUrl() + infoDto.documents.get(i).id;
+				infoDto.documents.get(i).map_url = restApiHelper.getMapUrl() + infoDto.documents.get(i).id;
 
 				// 검색 데이터 DB 저장
 				Document document = new Document(infoDto.documents.get(i));

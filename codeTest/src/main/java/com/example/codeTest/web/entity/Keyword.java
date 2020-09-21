@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.Builder;
 
 @Entity
 public class Keyword {
@@ -52,10 +51,4 @@ public class Keyword {
 		this.count = count;
 	}
 
-	@Builder
-	public Keyword(Long id, String keyword, Integer count) {
-		this.id = id;
-		this.keyword = keyword;
-		this.count = count;
-	}
 }

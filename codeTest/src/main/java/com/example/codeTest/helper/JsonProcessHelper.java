@@ -22,12 +22,12 @@ public class JsonProcessHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String getJsonData(String apiUrl) throws Exception {
+	public static String getJsonData(String apiUrl, String apiKey) throws Exception {
 		URL url = new URL(apiUrl);
 		HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
 		
 		con.setRequestMethod("GET");
-		con.setRequestProperty("Authorization", "KakaoAK "+RestApiHelper.getRestApiKey());
+		con.setRequestProperty("Authorization", "KakaoAK "+apiKey);
 		
 		int responseCode = con.getResponseCode();
 		BufferedReader br = null;

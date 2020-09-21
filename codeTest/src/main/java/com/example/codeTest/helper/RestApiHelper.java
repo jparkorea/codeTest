@@ -1,32 +1,38 @@
 package com.example.codeTest.helper;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
 public class RestApiHelper {
 
 	public enum HttpMethodType { POST, GET, DELETE }
 	
-	private static final String API_URL  = "https://dapi.kakao.com/v2/local/search/keyword.json?";
+	private final String API_URL  = "https://dapi.kakao.com/v2/local/search/keyword.json?";
 	
-	private static final String MAP_URL = "	https://map.kakao.com/link/map/";
+	private final String MAP_URL = "	https://map.kakao.com/link/map/";
 	
-	private static final String REST_API_KEY = "ac85e92d83fe5db337fa2dc8d2158563";
+	private final String REST_API_KEY = "ac85e92d83fe5db337fa2dc8d2158563";
 	
-	private static final String JS_KEY = "11c6eb02866d2c20a4c4e0b2cc0427f0";
+	@Value("${kakao.rest.api}")
+	private String KEY;
 	
-	public static String getApiUrl() {
+	public String getApiUrl() {
 		return API_URL;
 	}
 
-	public static String getMapUrl() {
+	public String getMapUrl() {
 		return MAP_URL;
 	}
 	
-	public static String getRestApiKey() {
-		return REST_API_KEY;
+	public String getRestApiKey() {
+		return KEY;
 	}
 
-	public static String getJsKey() {
-		return JS_KEY;
+	@Override
+	public String toString() {
+		return "RestApiHelper [API_URL=" + API_URL + ", MAP_URL=" + MAP_URL + ", REST_API_KEY=" + REST_API_KEY + ", KEY=" + KEY + "]";
 	}
-	
+
 	
 }

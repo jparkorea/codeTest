@@ -6,10 +6,6 @@ import javax.persistence.IdClass;
 
 import com.example.codeTest.web.dto.Documents;
 
-import lombok.Getter;
-import lombok.Setter;
-
-
 @Entity
 @IdClass(DocumentKey.class)
 public class Document {

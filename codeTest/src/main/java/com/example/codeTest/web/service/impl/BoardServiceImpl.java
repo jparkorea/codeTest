@@ -3,6 +3,7 @@ package com.example.codeTest.web.service.impl;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.codeTest.helper.JsonProcessHelper;
@@ -13,6 +14,9 @@ import com.example.codeTest.web.service.BoardService;
 @Service
 public class BoardServiceImpl implements BoardService{
 
+	@Autowired
+	RestApiHelper restApiHelper;
+	
 	/**
 	 * 키워드로 검색
 	 * @throws IOException 
@@ -23,7 +27,7 @@ public class BoardServiceImpl implements BoardService{
 		InfoDto infoDto = new InfoDto();
 		//Query 한글 포함 여부 체크 후 한글 포함 시 UTF-8 인코딩
 		String regExp = ".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*";
-		String targetUrl = RestApiHelper.getApiUrl()+"query=";
+		String targetUrl = restApiHelper.getApiUrl()+"query=";
 		if(query.matches(regExp)) {
 			targetUrl += URLEncoder.encode(query, "UTF-8"); 
 		}else {
@@ -32,7 +36,7 @@ public class BoardServiceImpl implements BoardService{
 		
 		try {
 			//주소로 URL 객체 생성	
-			String jsonData = JsonProcessHelper.getJsonData(targetUrl);
+			String jsonData = JsonProcessHelper.getJsonData(targetUrl, restApiHelper.getRestApiKey());
 			
 			infoDto = JsonProcessHelper.jsonToData(jsonData);
 			
