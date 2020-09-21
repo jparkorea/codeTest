@@ -1,5 +1,9 @@
 server:
   port: 8080
+  error:
+    include-exception: false
+    include-stacktrace: never
+    path: '/error'
 
 spring:
   h2:
