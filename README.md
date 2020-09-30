@@ -106,13 +106,15 @@ mvn clean install
 ```
 
 ##### Properties
-3) 발급받은 API Key를 `application.properties` 혹은 실행 시 옵션에 추가합니다.
+3) 발급받은 API Key를 `application.yml` 혹은 실행 시 옵션에 추가합니다.
 ```
-kakao.rest.api={Your Rest API Key}
+kakao:
+  rest:
+    api: ${KAKAO_REST_API_KEY:Your Rest API Key}  
 ```
 
 4) target/codeTest-0.0.1.war 경로로 이동 후 프로젝트 실행
- - `application.properties`를 수정하지 않은 상태에서 키 값을 옵션으로 주지 않고 실행 시, 서버 에러가 발생합니다.
+ - `application.yml`를 수정하지 않은 상태에서 키 값을 옵션으로 주지 않고 실행 시, 서버 에러가 발생합니다.
 ```
 java -jar codeTest-0.0.1.war (--kakao.rest.api={Your Rest API Key})
 ```
