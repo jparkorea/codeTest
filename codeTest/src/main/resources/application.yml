@@ -28,6 +28,11 @@ spring:
       ddl-auto: create-drop
     properties:
       hibernate:
-        show_sql:true
-        use_sql_comments:true
-        format_sql:true
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+
+# KAKAO_REST_API 키 환경변수 처리
+kakao:
+  rest:
+    api: ${KAKAO_REST_API_KEY:default_key}     # 보안이슈

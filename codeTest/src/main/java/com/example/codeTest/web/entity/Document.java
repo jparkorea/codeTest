@@ -1,26 +1,31 @@
 package com.example.codeTest.web.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 import com.example.codeTest.web.dto.Documents;
 
+// TODO 롬복 적용 여부 결정
 @Entity
-@IdClass(DocumentKey.class)
+//@IdClass(DocumentKey.class)
 public class Document {
 
-	@Id
+	// 고유 ID를 Primary Key로 사용하면 됨.
+	/*@Id
 	public String query;
 	@Id
 	public String placeName;
 	@Id
+	public String roadAddressName;*/
+
+	@Id
+	public String id;
+
+	public String query;
+	public String placeName;
 	public String roadAddressName;
-	
 	public String addressName;
 	public String phone;
 	public String placeUrl;
-	public String id;
 	public String mapUrl;
 	
 	protected Document() {

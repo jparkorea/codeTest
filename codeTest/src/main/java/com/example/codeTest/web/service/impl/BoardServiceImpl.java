@@ -3,6 +3,8 @@ package com.example.codeTest.web.service.impl;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+import com.example.codeTest.web.entity.Document;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +35,13 @@ public class BoardServiceImpl implements BoardService{
 		}else {
 			targetUrl += query;
 		}
-		
+
 		try {
 			//주소로 URL 객체 생성	
 			String jsonData = JsonProcessHelper.getJsonData(targetUrl, restApiHelper.getRestApiKey());
-			
+
 			infoDto = JsonProcessHelper.jsonToData(jsonData);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

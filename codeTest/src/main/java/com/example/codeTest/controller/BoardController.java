@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -56,7 +57,7 @@ public class BoardController {
 			, @RequestParam(value = "initQuery", required = false) String initQuery
 			, Model m
 			, @PageableDefault(size = 10) Pageable pageable) throws Exception {
-		
+
 		Page<Document> documents = null;
 
 		// 검색 버튼을 통해 최초 query만 가졌을 때
@@ -67,7 +68,7 @@ public class BoardController {
 				return "redirect:search";
 			}
 			
-			query = initQuery;
+			query = initQuery.trim();
 			InfoDto infoDto = new InfoDto();
 			infoDto = boardService.locationByKeyword(query);
 			
@@ -91,8 +92,8 @@ public class BoardController {
 			List<Keyword> keywords = keywordService.getList();
 			m.addAttribute("keywords", keywords);
 			m.addAttribute("query", query);
-			
-		}else { 
+
+		}else {
 			//initQuery와 query가 null이면 keyword만 적재
 
 			List<Keyword> keywords = keywordService.getList();
@@ -108,7 +109,7 @@ public class BoardController {
 		m.addAttribute("startPage", startPage);
 		m.addAttribute("endPage", endPage);
 		m.addAttribute("documents", documents);
-		
+
 		return "board/view";
 	}
 

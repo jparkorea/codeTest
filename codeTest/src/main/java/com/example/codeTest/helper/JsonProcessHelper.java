@@ -62,12 +62,12 @@ public class JsonProcessHelper {
 	 * @throws JsonProcessingException
 	 */
 	public static InfoDto jsonToData(String json) throws ParseException, JsonMappingException, JsonProcessingException {
-		
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
 		InfoDto infoDto = objectMapper.readValue(json, InfoDto.class);
-		
+
 		return infoDto;
 	}
 }
